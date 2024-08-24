@@ -39,3 +39,4 @@ Thumbs.db
 
 # Ignoring working directory
 working/
+env
