@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import "../../styles/admin.css"
+import "../styles/admin.css"
 
 const AdminPage = () => {
   const [location, setLocation] = useState('');

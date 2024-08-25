@@ -6,7 +6,6 @@ import User from './User/User';
 function App() {
   return (
     <div className="App">
-      <h1>Admin Dashboard</h1>
       <User></User>
       {/* <ChartComponent /> */}
     </div>

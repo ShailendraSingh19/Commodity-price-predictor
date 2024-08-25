@@ -6,7 +6,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 // Register components with Chart.js
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const ChartComponent = () => {
+const ChartComponent = ({ city, commodity }) => {
   const [chartData, setChartData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,12 +14,20 @@ const ChartComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/data'); // Replace with your backend API endpoint
+        const response = await axios.get('http://localhost:3000/data'); // Replace with your backend API endpoint
         const data = response.data;
-        console.log(response);
-        // Extract day and price for the chart
-        const days = data.map(d => d.day);
-        const prices = data.map(d => d.price);
+
+        console.log(data);
+        console.log("sarkar running");
+
+        // Extract days and prices for the selected city and commodity
+        const days = data
+          .filter(entry => entry.wheat && entry.wheat.delhi)
+          .map(entry => entry.wheat.delhi.date);
+
+        const prices = data
+          .filter(entry =>entry.wheat && entry.wheat.delhi)
+          .map(entry => entry.wheat.delhi.price);
 
         setChartData({
           labels: days,
@@ -36,13 +44,13 @@ const ChartComponent = () => {
 
         setLoading(false);
       } catch (err) {
-        setError('failed to fetch data for chart');
+        setError('Failed to fetch data for chart');
         setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [city, commodity]); // Depend on city and commodity to refetch when they change
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;

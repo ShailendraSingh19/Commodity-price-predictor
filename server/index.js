@@ -2,6 +2,8 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import temp from './Data/temp.json' assert { type: 'json' };
+
 const app = express();
 const PORT = 3000;
 
@@ -34,6 +36,11 @@ mongoose.connect('mongodb+srv://shailendraruhelasr:XI6lvDbybNn6HuMh@cluster3.nxf
 
 const Food = mongoose.model('Food', foodSchema);
 
+
+app.get('/data', async (req, res) => {
+  const tempString = JSON.stringify(temp);
+    res.send(tempString);
+})
 app.post('/food', async (req, res) => {
   const { name, prices } = req.body;
 
