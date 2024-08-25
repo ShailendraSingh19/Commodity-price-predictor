@@ -22,13 +22,22 @@ const ChartComponent = ({ city, commodity }) => {
 
         // Extract days and prices for the selected city and commodity
         const days = data
-          .filter(entry => entry.wheat && entry.wheat.delhi)
-          .map(entry => entry.wheat.delhi.date);
+          .filter(entry => entry.wheat && entry.wheat.vijayawada)
+          .map(entry => entry.wheat.vijayawada.date);
 
         const prices = data
-          .filter(entry =>entry.wheat && entry.wheat.delhi)
-          .map(entry => entry.wheat.delhi.price);
+          .filter(entry =>entry.wheat && entry.wheat.vijayawada)
+          .map(entry => entry.wheat.vijayawada.price);
 
+
+        //   const days = data
+        //   .filter(entry => entry[commodity] && entry[commodity][city])
+        //   .map(entry => entry[commodity][city].date);
+
+        // const prices = data
+        //   .filter(entry =>entry[commodity] && entry[commodity][city])
+        //   .map(entry => entry[commodity][city].price);
+        
         setChartData({
           labels: days,
           datasets: [
