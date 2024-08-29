@@ -4,7 +4,7 @@
 
 This project aims to create a prediction model for commodity prices in India. The model accounts for various factors that result in price changes, allowing the Indian government to decide whether to release their buffer stock to control price volatility. This helps in stabilizing the market and ensuring fair prices for consumers and producers.
 
-## **Problem Statement**
+## **Problem Statement by Ministry of Consumer Affairs, India**
 
 The goal is to predict the prices of different commodities for the next 4 months, based on various factors influencing these prices. The predictions are made on a weekly basis. The government uses these predictions to decide whether to release buffer stock, thereby controlling price volatility. Each government center is responsible for providing weekly price feedback, which is used to continually update and retrain the prediction model.
 
