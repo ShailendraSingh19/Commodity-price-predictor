@@ -2,16 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import ChartComponent from "./ChartComponent";
 
 export default function User() {
- 
+
   const [isCityDropdownOpen, setIsCityDropdownOpen] = useState(false);
   const [isCommodityDropdownOpen, setIsCommodityDropdownOpen] = useState(false);
   const [selectedCity, setSelectedCity] = useState('');
   const [selectedCommodity, setSelectedCommodity] = useState('');
-  const [triggerPrediction, setTriggerPrediction] = useState(false);
   const cityDropdownRef = useRef(null);
   const commodityDropdownRef = useRef(null);
 
-  
+
 
   const toggleCityDropdown = () => {
     setIsCityDropdownOpen(!isCityDropdownOpen);
@@ -29,14 +28,6 @@ export default function User() {
   const handleCommoditySelect = (commodity) => {
     setSelectedCommodity(commodity);
     setIsCommodityDropdownOpen(false);
-  };
-
-  
-  const handlePredict = () => {
-    // if (selectedCity && selectedCommodity) {
-      setTriggerPrediction(true);
-      // Optionally reset triggerPrediction after a certain period or based on some condition
-    // }
   };
 
   useEffect(() => {
@@ -58,15 +49,15 @@ export default function User() {
 
   return (
     <div className="bg-black min-h-screen">
-      
 
-      <div className="dark:bg-black p-8">
-        <p className="text-white text-3xl mb-6">Please select the location and commodity</p>
-        <div className="flex space-x-6">
-          <div className="relative" ref={cityDropdownRef}>
+
+      <div className="dark:bg-black pt-8 pr-8 pl-8">
+        <p className="pl-20 text-white text-xl mb-2">Please select the location and commodity</p>
+        <div className="flex space-x-6 pl-20">
+          <div className="relative " ref={cityDropdownRef}>
             <button
               onClick={toggleCityDropdown}
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className=" pl-10 pr-10 text-blue-600 bg-blue-700  font-medium rounded-lg text-sm px-5 py-1.5 text-center inline-flex items-center dark:bg-slate-100  dark:focus:ring-blue-800"
               type="button"
             >
               {selectedCity || "Select City"}
@@ -90,7 +81,7 @@ export default function User() {
             {isCityDropdownOpen && (
               <div className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-                  {["Delhi", "Hisar", "Hyderabad", "Karnal", "Vijayawada", "Bhubaneswar", "Shimla", "Chennai"].map((city) => (
+                  {["DELHI", "HISAR", "HYDERABAD", "KARNAL", "VIJAYAWADA", "BHUBANESWAR", "SHIMLA", "CHENNAI"].map((city) => (
                     <li key={city}>
                       <a
                         href="#"
@@ -109,7 +100,7 @@ export default function User() {
           <div className="relative" ref={commodityDropdownRef}>
             <button
               onClick={toggleCommodityDropdown}
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className=" pl-10 pr-10 text-blue-600 bg-blue-700  font-medium rounded-lg text-sm px-5 py-1.5 text-center inline-flex items-center dark:bg-slate-100  dark:focus:ring-blue-800"
               type="button"
             >
               {selectedCommodity || "Select Commodity"}
@@ -133,7 +124,7 @@ export default function User() {
             {isCommodityDropdownOpen && (
               <div className="absolute z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-                  {["Onion", "Potato", "Rice", "Wheat"].map((commodity) => (
+                  {["onion", "potato", "rice", "wheat"].map((commodity) => (
                     <li key={commodity}>
                       <a
                         href="#"
@@ -148,32 +139,21 @@ export default function User() {
               </div>
             )}
           </div>
-
-          <button
-            type="button"
-            className="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-            onClick={handlePredict}
-          >
-            Predict
-          </button>
         </div>
       </div>
-      
-      <div className="flex flex-row space-x-20 p-8">
-        <div className="h-90 w-1/2">
-        if(selectedCity && setSelectedCommodity){
-          <ChartComponent 
-          city={selectedCity} 
-          commodity={selectedCommodity}
-          triggerPrediction={triggerPrediction}
-        />
-        }
-          
+
+      <div className="flex flex-row space-x-20 pt-1 pb-8 pl-8 pr-8">
+        <div className=" flex-2/3 h-90 w-1/2">
+          <ChartComponent
+            city={selectedCity}
+            commodity={selectedCommodity}
+          />
+
+
         </div>
-        <div className="flex-grow flex flex-col justify-center items-end">
-          <p className="text-white text-xl max-w-lg">
-            The graph displays the trend in prices over the next eight weeks (or a season), with the X-axis representing time in weeks and the Y-axis showing the price. As you move from left to right along the X-axis, each point corresponds to a specific week and its associated price. The graph helps visualize how prices are expected to change over this period, showing whether they will increase, decrease, or remain stable. This analysis is useful for forecasting and making informed decisions based on the anticipated price trends.
-          </p>
+        <div className=" flex-1/3 rounded-3xl pl-10 pr-10 ml-20 mr-40 mb-1 dark:bg-slate-100 flex-grow flex flex-col justify-center items-end">
+          <p className="text-black text-sm max-w-lg">
+          The graph displays the trend in prices over the next eight weeks (or a season), with the X-axis representing time in weeks and the Y-axis showing the price. As you move from left to right along the X-axis, each point corresponds to a specific week and its associated price. </p>
         </div>
       </div>
     </div>

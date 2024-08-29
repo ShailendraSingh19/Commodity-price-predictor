@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import "../styles/admin.css"
+import "../../styles/admin.css"
 
 const AdminPage = () => {
   const [location, setLocation] = useState('');
@@ -8,30 +8,48 @@ const AdminPage = () => {
   const [price, setPrice] = useState('');
 
   const locations = [
-    { value: 'New York', label: 'New York' },
-    { value: 'Los Angeles', label: 'Los Angeles' },
-    { value: 'Chicago', label: 'Chicago' },
-    { value: 'Houston', label: 'Houston' },
-    { value: 'Phoenix', label: 'Phoenix' },
-    { value: 'Philadelphia', label: 'Philadelphia' },
-    { value: 'San Antonio', label: 'San Antonio' },
+    { value: 'DELHI', label: 'DELHI' },
+    { value: 'HYDERABAD', label: 'HYDERABAD' },
+    { value: 'HISAR', label: 'HISAR' },
+    { value: 'SHIMLA', label: 'SHIMLA' },
+    { value: 'BHUBANESWAR', label: 'BHUBANESWAR' },
+    { value: 'VIJAYAWADA', label: 'VIJAYAWADA' },
+    { value: 'CHENNAI', label: 'CHENNAI' }
   ];
+
+
+  //the values are set with extra 'n' to prevent inconsitent addition in db
+  // some logic is still undone.
+  const commodities = [
+    { value: 'onionn', label: 'onionn' },
+    { value: 'potaton', label: 'potaton' },
+    { value: 'ricen', label: 'ricen' },
+    { value: 'wheatn', label: 'wheatn' }
+  ];
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    function getFormattedDate() {
+      const date = new Date();
+      const year = date.getFullYear() % 100;
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+      const day = String(date.getDate()).padStart(2, '0');
 
-    // Create the prices array with the current location and price
-    const prices = [
-      { location: location, price: parseFloat(price) }
-    ];
+      return `${day}-${month}-${year}`;
+    }
 
+    const formattedDate = getFormattedDate();
+    console.log(formattedDate);
+    const NewAdd = { Date: formattedDate, centre: location, Price: parseFloat(price) };
     try {
       const response = await axios.post(
-        'http://localhost:3000/food', // Make sure this URL matches your backend route
-        { name: foodName, prices }
+        'http://localhost:5000/commodity', // Make sure this URL matches your backend route
+        { name: foodName, NewAdd }
       );
       console.log(response.data);
     } catch (error) {
+      console.log("call failed")
       console.error(error);
     }
   };
@@ -60,12 +78,24 @@ const AdminPage = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">Food Name:</label>
-            <input
+            <select
+              value={foodName}
+              onChange={(event) => setFoodName(event.target.value)}
+              className="mt-1 block w-full pl-3 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            >
+              <option value="">Select a commodity</option>
+              {commodities.map((commo) => (
+                <option key={commo.value} value={commo.value}>
+                  {commo.label}
+                </option>
+              ))}
+            </select>
+            {/* <input
               type="text"
               value={foodName}
               onChange={(event) => setFoodName(event.target.value)}
               className="mt-1 block w-full pl-3 py-2 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
+            /> */}
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">Price:</label>

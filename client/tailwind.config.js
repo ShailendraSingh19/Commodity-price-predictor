@@ -5,7 +5,15 @@ module.exports = {
     "./public/index.html"
   ],
   theme: {
-    extend: {},
+    extend: {
+      flex: {
+        '2/3': '2 2 75%',
+        '1/3': '1 1 25%',
+      },
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }
